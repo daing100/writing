@@ -1,0 +1,163 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-feynman}
+
+
+% If using spacemacs in Vim mode, use ', a' to save and build.
+
+\title{Notes}
+\author{Carl-Fredrik Lidgren}
+
+\renewenvironment{\thesection}{\arabic{section}}
+
+\newcommand*{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\I}[1]{\mathrm{I}_{#1}}
+\newcommand{\Res}[2]{\mathrm{Res}_{#1}\!\left( #2 \right)}
+\newcommand{\p}{\partial}
+\newcommand{\diam}{\mathrm{diam}\,}
+
+\renewcommand\qedsymbol{QED}
+
+\newtheorem{definition}{Definition}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+This document is for some general thoughts and notes on mathematics. This may be
+transfered to another file in the future.
+\subsection{Symbols}
+\begin{tabular}{c p{12.5cm}}
+  $\forall$ & ``For all'' or ``for each''. Sometimes, if adventurous, ``for every''.\\
+  $\exists$ & ``Exists'' or ``there exists''.\\
+  $!\exists$ & ``There exists a unique''.\\
+  $\therefore$ & ``Therefore'' or ``thus''.\\
+  $||$ & ``Such that''. In set builder notation, this will simply be '$|$'.\\
+  $\in$ & ``In'' or ``is in''.\\
+  $\subset$ & ``Subset'' or ``is a subset of''.\\
+  $\Rightarrow$ & ``Implies'' or ``then''.\\
+  $\Leftrightarrow$ & ``If and only if''. $p \Leftrightarrow q$ is the same as $p \Rightarrow q,\;q\Rightarrow$.
+\end{tabular}
+
+\chapter{Mathematics}
+\clearpage
+\section{Real Analysis}
+Most of the stuff here relates to Walter Rudin's ``Principles of Mathematical
+Analysis'', but other stuff might pop up as well.\\
+\begin{definition}
+  A set $X$ equiped with a distance function is called a metric space. The
+  distance function must satisfy the following for every $p,q\in X$:
+  \begin{align*}
+    &(a)\quad d(p,q) > 0 \text{ if } p\not = q\\
+    &(b)\quad d(p,p) = 0\\
+    &(c)\quad d(p,q) = d(q,p)\\
+    &(d)\quad d(p,q) \leq d(p,r) + d(r,q),\text{ for any } r\in X
+  \end{align*}
+\end{definition}
+A lot of the definitions assume some sort of metric space $X$.
+\begin{definition}
+  A neighborhood \(N_r(p) = \{ q\in X\;|\;\, d(p,q)<r \}\).
+\end{definition}
+If you consider $X=\mathbb{R}^2$, then a neighborhood of would be the set of all
+points in an open circle of some radius around $p$. With this definition in
+mind, we can move on to some more complicated things.
+\begin{definition}
+  A limit point of the set $E$ is a point \(p\) such that
+  \[
+    \forall N(p)\,\exists q \not = p,\,q\in N(p),\;q\in E
+  \]
+\end{definition}
+This effectively means that the point $p$ is right on the edge of the set. Of
+course, most points of a set are limit points, bui the interesting ones are
+generally the ones which are sort of at the edge of the set.
+\begin{definition}
+  An interior point of the set $E$ is a point $p$ such that \[\exists N(p)
+  \subset E\]
+\end{definition}
+This definition is significantly easier to grasp than the limit point
+definition. It means that a point $p$ is an interior point of $E$ if you can form a
+circle around it which is inside the set $E$.
+\begin{definition}
+  A set $E$ is called \textbf{closed} if every limit point of $E$ is a point in $E$.
+\end{definition}
+It is easy to see how this mimics the intuitive meaning of 'closed', since if
+you imagine a closed interval or closed circle, then it will have a border which
+is exactly what is being described here by the limit points.
+\begin{definition}
+  A sequence $\{ p_n \}$ is said to converge to a point $p\in X$ if \[ \forall
+    \varepsilon > 0\,\exists N\,||\, n\geq N\Rightarrow d(p_n,p) < \varepsilon \]
+  In this case, we write either $p_n\rightarrow p$ or \[ \lim_{n\rightarrow \infty}p_n=p \]
+\end{definition}
+The reason for this definition should be obvious: if the terms of the sequence
+get closer and closer to the point $p$, then the sequence converges to p. As
+such, it is natural to take this definition further and define a cauchy
+sequence.
+\begin{definition}
+  A sequence $\{p_n\}$ is said to be a \textbf{cauchy sequence} if\[\forall
+    \varepsilon > 0 \,\exists N \,||\, n,m\geq N\Rightarrow d(p_n,p_m) <
+    \varepsilon \]
+\end{definition}
+This definition is a little more difficult to process than the one for a
+traditional convergent sequence, but effectively what it means is that a cauchy
+sequence is a sequence wherein each term progressively gets closer and closer to
+the next one.
+\begin{definition}
+  If $E\subset X$, and $S=\{d(x, y)\;|\;\, x,y\in E \}$, then we say that $\sup
+  S$ is the diameter of $E$, and is written \(\diam E\).
+\end{definition}
+Given this, we can create an equivalent definition of a cauchy sequence. If
+$\{p_n\}$ is a sequence, and $E_N = \{p_N,p_{N+1},p_{N+2},...\}$, then $\{p_n\}$
+is a cauchy sequence if and only if \[ \lim_{N\rightarrow\infty}\diam E_N=0 \]
+
+\chapter{Physics}
+\clearpage
+\section{Nuclear and Particle Physics}
+\subsection{Light Energy is Quantized}
+The energy of light comes in small packages, given by the formula \[E = hf.\]
+A consequence of this is that we can very easily determine the energy released
+by a photon when an atom changes energy states. The energy of a hydrogen atom at
+\(n=n_0\) is given by \[E = -\frac{13.6}{n^2}.\] As such, we can get the
+difference in energy between levels, e.g. \(n_1\rightarrow n_2\):
+\[\Delta E = -13.6\left( \frac{1}{n_2^2}-\frac{1}{n_1^2} \right).\]
+So, from this, since the energy of the photon released in this interaction is
+the difference in energy \(\Delta E\), we can determine the frequence of the
+light by the following:
+\[
+  \Delta E = hf \Rightarrow f = \frac{\Delta E}{h} = \frac{-13.6\left( \frac{1}{n_2^2}-\frac{1}{n_1^2} \right)}{h}
+\]
+Which gives us the final answer,
+\[
+  f = \frac{13.6}{h}\left( \frac{1}{n_1^2}-\frac{1}{n_2^2} \right)
+\]
+Of course, this only holds for the hydrogen atom. The constant \(-13.6\) would be
+different for other atoms.
+\subsection{Binding Energy}
+The binding energy of a nucleon in a particular nucleus is the amount of energy
+it would take to remove the nucleon completely. This can be calculated rather
+easily by simply taking the difference between the experimentally determined
+mass and the theoretically determined mass of the nucleus. For example, given an
+atom \(_Z^AK\), we get the mass difference \(\delta\) by the following:
+\begin{align*}
+  \delta &= m_K - (Zm_e + Zm_p + (A-Z)m_n)\\&= m_K - Z(m_e+m_p) - (A-Z)m_n\\&= m_K -
+  Z(m_e+m_p-m_n) + Am_n
+\end{align*}
+From this, it is trivial to get the energy. Simply apply the energy-mass
+equivalence formula,
+\[
+  E = mc^2 = \delta c^2
+\]
+\subsection{Feynman Diagrams}
+Feynman diagrams are a convenient way of representing interactions between
+particles. While you could, for example, write out a long chain of characters
+representing the interaction, you could also just have a nice diagram showing it
+just as accurately, if not more so.
+\end{document}
